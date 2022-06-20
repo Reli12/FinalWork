@@ -3,6 +3,7 @@ interface IProps {
 }
 
 const Table = ({ numberOfEquation }: IProps) => {
+  console.log(numberOfEquation + " THis shit");
   return <></>;
 };
 

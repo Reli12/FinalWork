@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Input from "../Atoms/Input";
+import Table from "../Molecules/Table";
 
 const Root = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Home = () => {
     <Root>
       <Text>Insert the number of equation that you wont have:</Text>
       <Input onChange={onChange} />
+      <Table numberOfEquation={numberOfEquation} />
     </Root>
   );
 };

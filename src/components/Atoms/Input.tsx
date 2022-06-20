@@ -8,11 +8,12 @@ interface IProps {
 const RootInput = styled.input`
   width: 50px;
   height: 25px;
+  border: none;
 `;
 const Input = ({ onChange, Id }: IProps) => {
   return (
     <div>
-      <RootInput type="number" onChange={onChange} id={Id} />
+      <RootInput type="number" onChange={onChange} id={Id} step="any" />
     </div>
   );
 };
