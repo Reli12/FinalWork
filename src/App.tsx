@@ -1,12 +1,11 @@
-import Input from "./components/Atoms/Input";
+import NavBar from "./components/Molecules/NavBar";
+import Home from "./components/Pages/Home";
 
 function App() {
   return (
-    <div className="App">
-      <Input />
-      <Input />
-      <Input />
-      <Input />
+    <div>
+      <NavBar />
+      <Home />
     </div>
   );
 }
