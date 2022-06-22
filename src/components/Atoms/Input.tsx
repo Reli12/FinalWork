@@ -1,19 +1,28 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 interface IProps {
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   Id?: string;
 }
 
 const RootInput = styled.input`
   width: 50px;
   height: 25px;
-  border: none;
 `;
-const Input = ({ onChange, Id }: IProps) => {
+const Input = ({ Id }: IProps) => {
+  const [first, setfirst] = useState(0);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setfirst(parseInt(e.target.value));
+  };
   return (
     <div>
-      <RootInput type="number" onChange={onChange} id={Id} step="any" />
+      <RootInput
+        type="number"
+        onChange={onChange}
+        id={Id}
+        step="any"
+        value={`${first}`}
+      />
     </div>
   );
 };

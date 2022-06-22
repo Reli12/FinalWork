@@ -5,6 +5,7 @@ import Table from "../Molecules/Table";
 
 const Root = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -17,14 +18,18 @@ const Text = styled.span`
 
 const Home = () => {
   const [numberOfEquation, setNumberOfEquation] = useState(0);
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNumberOfEquation(parseInt(e.target.value));
+  let a: string;
+  const onChange = () => {
+    const input = document.getElementById("NumOfEqueazion") as HTMLInputElement;
+    a = input.value;
+    setNumberOfEquation(parseInt(a));
   };
   return (
     <Root>
       <Text>Insert the number of equation that you wont have:</Text>
-      <Input onChange={onChange} />
-      <Table numberOfEquation={numberOfEquation} />
+      <Input Id="NumOfEqueazion" />
+      <button onClick={onChange}>Button</button>
+      {numberOfEquation > 1 && <Table numberOfEquation={numberOfEquation} />}
     </Root>
   );
 };
