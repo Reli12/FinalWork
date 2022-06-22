@@ -1,5 +1,5 @@
-import { useState } from "react";
 import styled from "styled-components";
+import { useMatrixContext } from "../../context/Context";
 import Input from "../Atoms/Input";
 import Table from "../Molecules/Table";
 
@@ -17,7 +17,7 @@ const Text = styled.span`
 `;
 
 const Home = () => {
-  const [numberOfEquation, setNumberOfEquation] = useState(0);
+  const { numberOfEquation, setNumberOfEquation } = useMatrixContext();
   let a: string;
   const onChange = () => {
     const input = document.getElementById("NumOfEqueazion") as HTMLInputElement;
@@ -29,7 +29,7 @@ const Home = () => {
       <Text>Insert the number of equation that you wont have:</Text>
       <Input Id="NumOfEqueazion" />
       <button onClick={onChange}>Button</button>
-      {numberOfEquation > 1 && <Table numberOfEquation={numberOfEquation} />}
+      {numberOfEquation > 1 && <Table />}
     </Root>
   );
 };

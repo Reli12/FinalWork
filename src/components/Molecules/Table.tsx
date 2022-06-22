@@ -1,10 +1,8 @@
+import { useMatrixContext } from "../../context/Context";
 import Input from "../Atoms/Input";
 
-interface IProps {
-  numberOfEquation: number;
-}
-
-const Table = ({ numberOfEquation }: IProps) => {
+const Table = () => {
+  const { numberOfEquation } = useMatrixContext();
   let array = new Array(numberOfEquation);
   for (let i = 0; i < numberOfEquation; i++) {
     array[i] = i;
@@ -19,7 +17,7 @@ const Table = ({ numberOfEquation }: IProps) => {
         const input = document.getElementById(`${i},${j}`) as HTMLInputElement;
         d = input.value;
         console.log(d);
-        if (d == "0") {
+        if (d == "") {
           a[i][j] = 0;
         } else {
           a[i][j] = parseFloat(d);

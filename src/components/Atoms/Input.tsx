@@ -16,13 +16,7 @@ const Input = ({ Id }: IProps) => {
   };
   return (
     <div>
-      <RootInput
-        type="number"
-        onChange={onChange}
-        id={Id}
-        step="any"
-        value={`${first}`}
-      />
+      <RootInput type="number" onChange={onChange} id={Id} step="any" />
     </div>
   );
 };
