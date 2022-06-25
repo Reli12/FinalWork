@@ -2,16 +2,17 @@ import { useMatrixContext } from "../../context/Context";
 import Input from "../Atoms/Input";
 
 const Table = () => {
-  const { numberOfEquation } = useMatrixContext();
+  const { numberOfEquation, resault, matrix, calculateDet } =
+    useMatrixContext();
+
   let array = new Array(numberOfEquation);
   for (let i = 0; i < numberOfEquation; i++) {
     array[i] = i;
   }
+
   let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
   const HandleSumbit = () => {
-    let matrix: number[][] = [];
-    let resault: number[] = [];
     let d: string;
     for (let i = 0; i < numberOfEquation; i++) {
       matrix[i] = [];
@@ -19,7 +20,7 @@ const Table = () => {
         const input = document.getElementById(`${i},${j}`) as HTMLInputElement;
         d = input.value;
 
-        if (d == "") {
+        if (d === "") {
           matrix[i][j] = 0;
         } else {
           matrix[i][j] = parseFloat(d);
@@ -27,19 +28,24 @@ const Table = () => {
         console.log(matrix[i][j]);
       }
     }
-    //geting resault of each matrix
-    for (let i = 0; i < numberOfEquation; i++) {
-      const input = document.getElementById(`Resault${i}`) as HTMLInputElement;
+    let i = 0;
+    for (let j = 0; j < numberOfEquation; j++) {
+      const input = document.getElementById(`Resault${j}`) as HTMLInputElement;
       d = input.value;
-
+      console.log(d + "da");
       if (d == "") {
-        resault[i] = 0;
+        resault[j] = 0;
       } else {
-        resault[i] = parseFloat(d);
+        resault[j] = parseFloat(d);
+        console.log(resault[j] + "inside giving value");
       }
-      // console.log(resault[i] + "Resault");
+      console.log(resault[j] + "res");
+      i++;
     }
+    console.log(resault.length + "len");
+    calculateDet();
   };
+
   return (
     <>
       <div>
@@ -49,7 +55,7 @@ const Table = () => {
               {array.map((el, i) => (
                 <>
                   <th>{alphabet[i]}</th>
-                  {i == numberOfEquation - 1 && <th>Resaults</th>}
+                  {i === numberOfEquation - 1 && <th>Resaults</th>}
                 </>
               ))}
             </tr>
