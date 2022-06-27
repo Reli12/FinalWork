@@ -1,8 +1,28 @@
+import styled from "styled-components";
 import { useMatrixContext } from "../../context/Context";
 import Input from "../Atoms/Input";
 
+const Button = styled.button`
+  background-color: #379392;
+  border-radius: 10px;
+  border: 1px solid #379392;
+  width: 120px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #fffffa;
+  font-weight: bold;
+  :hover {
+    cursor: pointer;
+  }
+`;
+const Text = styled.span`
+  font-size: 25px;
+  font-weight: bold;
+  color: #383b53;
+`;
+
 const Table = () => {
-  const { numberOfEquation, resault, matrix, calculateDet } =
+  const { numberOfEquation, resault, matrix, Calculate, flag } =
     useMatrixContext();
 
   let array = new Array(numberOfEquation);
@@ -25,49 +45,41 @@ const Table = () => {
         } else {
           matrix[i][j] = parseFloat(d);
         }
-        console.log(matrix[i][j]);
       }
     }
-    let i = 0;
     for (let j = 0; j < numberOfEquation; j++) {
       const input = document.getElementById(`Resault${j}`) as HTMLInputElement;
       d = input.value;
-      console.log(d + "da");
       if (d == "") {
         resault[j] = 0;
       } else {
         resault[j] = parseFloat(d);
-        console.log(resault[j] + "inside giving value");
       }
-      console.log(resault[j] + "res");
-      i++;
     }
-    console.log(resault.length + "len");
-    calculateDet();
+    Calculate();
   };
 
   return (
     <>
       <div>
         <table>
-          <thead>
-            <tr>
-              {array.map((el, i) => (
-                <>
-                  <th>{alphabet[i]}</th>
-                  {i === numberOfEquation - 1 && <th>Resaults</th>}
-                </>
-              ))}
-            </tr>
-          </thead>
+          <thead></thead>
           <tbody>
             {array.map((el, i) => (
               <tr>
                 {array.map((el, j) => (
-                  <th>
-                    <Input key={`${i}${j}`} Id={`${i},${j}`} />
-                  </th>
+                  <>
+                    <th>
+                      <Input key={`${i}${j}`} Id={`${i},${j}`} />
+                    </th>
+                    {j + 1 != numberOfEquation ? (
+                      <th>x{`${j + 1}`}+</th>
+                    ) : (
+                      <th>x{`${j + 1}`}</th>
+                    )}
+                  </>
                 ))}
+                <th>=</th>
                 <th>
                   <Input key={`${i}+Resault`} Id={`Resault${i}`} />
                 </th>
@@ -76,7 +88,7 @@ const Table = () => {
           </tbody>
         </table>
       </div>
-      <button onClick={HandleSumbit}>Sumbit values</button>
+      <Button onClick={HandleSumbit}>Sumbit values</Button>
     </>
   );
 };

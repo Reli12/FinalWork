@@ -9,31 +9,38 @@ interface Data {
   setNumberOfEquation: React.Dispatch<React.SetStateAction<number>>;
   resault: number[];
   matrix: number[][];
-  calculateDet: VoidFunction;
+  Calculate: VoidFunction;
+  FinalResault: number[];
+  flag: number;
 }
 
 const Context = React.createContext<Data>({} as Data);
 
 export const ContextMatrixProvider = (props: any) => {
   const [numberOfEquation, setNumberOfEquation] = useState(0);
+  const [flag, setflag] = useState(0);
+
   let resault: number[] = [];
   let matrix: number[][] = [];
-
-  const calculateDet = () => {
-    //let a = det(matrix);
-    //console.log(a + "det");
+  // let FinalResault: number[] = [];
+  const [FinalResault, setFinalResault] = useState([] as number[]);
+  const Calculate = () => {
+    let a = det(matrix);
+    console.log(a + "det");
     // let inv = inverse(matrix);
-    let inve = inv(matrix);
-    for (let i = 0; i < numberOfEquation; i++) {
-      for (let j = 0; j < numberOfEquation; j++) {
-        console.log(inve[i][j] + `[${i}] [${j}] inv`);
+    setflag(-1);
+    if (a == 0) {
+      setflag(-1);
+    } else {
+      let inve = inverse(matrix);
+
+      let finalResault = MultyplayMatrix(inve, resault, numberOfEquation);
+      setflag(1);
+      //let FinalResault = multiply(inve, resault);
+      //let i = 0;
+      for (let i = 0; i < numberOfEquation; i++) {
+        FinalResault.push(finalResault[i]);
       }
-    }
-    let FinalResault = MultyplayMatrix(inve, resault, numberOfEquation);
-    //let FinalResault = multiply(inve, resault);
-    //let i = 0;
-    for (let i = 0; i < numberOfEquation; i++) {
-      console.log(FinalResault[i] + `[${i}]`);
     }
   };
   return (
@@ -42,8 +49,10 @@ export const ContextMatrixProvider = (props: any) => {
         matrix,
         resault,
         numberOfEquation,
-        calculateDet,
+        Calculate,
         setNumberOfEquation,
+        FinalResault,
+        flag,
       }}
     >
       {props.children}

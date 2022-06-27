@@ -1,5 +1,5 @@
 import React from "react";
-function det(M: number[][]) {
+/*function det(M: number[][]) {
     if (M.length == 2) {
       return M[0][0] * M[1][1] - M[0][1] * M[1][0];
     }
@@ -21,6 +21,14 @@ function det(M: number[][]) {
     }
     return temp;
   }
-
+*/
+const det = (m:any) => 
+  m.length == 1 ?
+  m[0][0] :
+  m.length == 2 ? 
+  m[0][0]*m[1][1]-m[0][1]*m[1][0] :
+  m[0].reduce((r: number,e: number,i: number) => 
+    r+(-1)**(i+2)*e*det(m.slice(1).map((c: any[]) => 
+      c.filter((_: any,j: any) => i != j))),0)
 
   export default det
