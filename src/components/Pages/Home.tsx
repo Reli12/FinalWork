@@ -30,13 +30,17 @@ const Button = styled.button`
     cursor: pointer;
   }
 `;
-
+const SelectItem = styled.select`
+  width: 40px;
+  height: 30px;
+  border-radius: 4px;
+`;
 const Home = () => {
   const { numberOfEquation, setNumberOfEquation, FinalResault, flag } =
     useMatrixContext();
   let a: string;
   const onChange = () => {
-    const input = document.getElementById("NumOfEqueazion") as HTMLInputElement;
+    const input = document.getElementById("ddlViewBy") as HTMLInputElement;
     a = input.value;
     setNumberOfEquation(parseInt(a));
   };
@@ -44,7 +48,17 @@ const Home = () => {
   return (
     <Root>
       <Text>Unesite broj jednadžbi koje želite imati:</Text>
-      <Input Id="NumOfEqueazion" />
+      <SelectItem id="ddlViewBy">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </SelectItem>
       <Button onClick={onChange}>Unesite</Button>
       {numberOfEquation > 1 && (
         <>

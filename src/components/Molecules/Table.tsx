@@ -15,22 +15,14 @@ const Button = styled.button`
     cursor: pointer;
   }
 `;
-const Text = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  color: #383b53;
-`;
 
 const Table = () => {
-  const { numberOfEquation, resault, matrix, Calculate, flag } =
-    useMatrixContext();
+  const { numberOfEquation, resault, matrix, Calculate } = useMatrixContext();
 
   let array = new Array(numberOfEquation);
   for (let i = 0; i < numberOfEquation; i++) {
     array[i] = i;
   }
-
-  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
   const HandleSumbit = () => {
     let d: string;
@@ -50,7 +42,7 @@ const Table = () => {
     for (let j = 0; j < numberOfEquation; j++) {
       const input = document.getElementById(`Resault${j}`) as HTMLInputElement;
       d = input.value;
-      if (d == "") {
+      if (d === "") {
         resault[j] = 0;
       } else {
         resault[j] = parseFloat(d);
@@ -63,7 +55,6 @@ const Table = () => {
     <>
       <div>
         <table>
-          <thead></thead>
           <tbody>
             {array.map((el, i) => (
               <tr>
@@ -72,7 +63,7 @@ const Table = () => {
                     <th>
                       <Input key={`${i}${j}`} Id={`${i},${j}`} />
                     </th>
-                    {j + 1 != numberOfEquation ? (
+                    {j + 1 !== numberOfEquation ? (
                       <th>x{`${j + 1}`}+</th>
                     ) : (
                       <th>x{`${j + 1}`}</th>
@@ -88,7 +79,7 @@ const Table = () => {
           </tbody>
         </table>
       </div>
-      <Button onClick={HandleSumbit}>Sumbit values</Button>
+      <Button onClick={HandleSumbit}>Izračunaj</Button>
     </>
   );
 };

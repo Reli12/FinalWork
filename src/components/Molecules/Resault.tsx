@@ -12,17 +12,17 @@ const Resault = () => {
   let array = new Array(numberOfEquation);
   for (let i = 0; i < numberOfEquation; i++) {
     array[i] = i;
-    console.log(FinalResault[i] + "RESAULT");
   }
   return (
     <>
-      {flag == -1 ? (
+      {flag === -1 ? (
         <>
           <Text>Jednadžba nema riješenja</Text>
+          <Text> ili jednadžba nije riješiva ovom metodom</Text>
         </>
       ) : (
         <>
-          {flag == 1 && (
+          {flag === 1 && (
             <>
               <Text>Rezultati jednadžbi:</Text>
               {array.map((el, i) => (

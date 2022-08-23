@@ -19,11 +19,10 @@ const Context = React.createContext<Data>({} as Data);
 export const ContextMatrixProvider = (props: any) => {
   const [numberOfEquation, setNumberOfEquation] = useState(0);
   const [flag, setflag] = useState(0);
-
   let resault: number[] = [];
   let matrix: number[][] = [];
-  // let FinalResault: number[] = [];
   const [FinalResault, setFinalResault] = useState([] as number[]);
+
   const Calculate = () => {
     let a = det(matrix);
     console.log(a + "det");
@@ -32,7 +31,7 @@ export const ContextMatrixProvider = (props: any) => {
     if (a == 0) {
       setflag(-1);
     } else {
-      let inve = inverse(matrix);
+      let inve = inv(matrix);
 
       let finalResault = MultyplayMatrix(inve, resault, numberOfEquation);
       setflag(1);
