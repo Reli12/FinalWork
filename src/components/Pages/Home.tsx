@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useMatrixContext } from "../../context/Context";
-import Input from "../Atoms/Input";
 import Resault from "../Molecules/Resault";
 import Table from "../Molecules/Table";
 
@@ -36,8 +34,7 @@ const SelectItem = styled.select`
   border-radius: 4px;
 `;
 const Home = () => {
-  const { numberOfEquation, setNumberOfEquation, FinalResault, flag } =
-    useMatrixContext();
+  const { numberOfEquation, setNumberOfEquation } = useMatrixContext();
   let a: string;
   const onChange = () => {
     const input = document.getElementById("ddlViewBy") as HTMLInputElement;
