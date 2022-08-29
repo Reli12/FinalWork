@@ -1,5 +1,6 @@
 import { inv, multiply } from "mathjs";
 import React, { useState } from "react";
+import useStore from "../appStore/appStore";
 import det from "../functions/matrixDeterminant";
 import inverse from "../functions/MatrixInverse";
 import MultyplayMatrix from "../functions/MatrixMultiplay";
@@ -12,6 +13,7 @@ interface Data {
   Calculate: VoidFunction;
   FinalResault: number[];
   flag: number;
+  inversResault: number[];
 }
 
 const Context = React.createContext<Data>({} as Data);
@@ -22,7 +24,8 @@ export const ContextMatrixProvider = (props: any) => {
   let resault: number[] = [];
   let matrix: number[][] = [];
   const [FinalResault, setFinalResault] = useState([] as number[]);
-
+  const [inversResault, setInverseResault] = useState([] as number[]);
+  const { setInverse } = useStore();
   const Calculate = () => {
     let a = det(matrix);
     console.log(a + "det");
@@ -32,7 +35,7 @@ export const ContextMatrixProvider = (props: any) => {
       setflag(-1);
     } else {
       let inve = inv(matrix);
-
+      setInverse(matrix);
       let finalResault = MultyplayMatrix(inve, resault, numberOfEquation);
       setflag(1);
       //let FinalResault = multiply(inve, resault);
@@ -40,6 +43,12 @@ export const ContextMatrixProvider = (props: any) => {
       for (let i = 0; i < numberOfEquation; i++) {
         FinalResault.push(finalResault[i]);
       }
+      for (let i = 0; i < numberOfEquation; i++) {
+        for (let j = 0; j < numberOfEquation; j++) {
+          inversResault.push(inve[i][j]);
+        }
+      }
+      console.log(inversResault);
     }
   };
   return (
@@ -52,6 +61,7 @@ export const ContextMatrixProvider = (props: any) => {
         setNumberOfEquation,
         FinalResault,
         flag,
+        inversResault,
       }}
     >
       {props.children}
