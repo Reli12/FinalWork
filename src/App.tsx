@@ -10,7 +10,6 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Resault" element={<ResaultPage />} />
       </Routes>
     </ContextMatrixProvider>
   );
