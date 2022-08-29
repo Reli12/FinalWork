@@ -9,7 +9,7 @@ function App() {
     <ContextMatrixProvider>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Home />
       </Routes>
     </ContextMatrixProvider>
   );
