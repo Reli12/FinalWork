@@ -2,7 +2,6 @@ import { inv, multiply } from "mathjs";
 import React, { useState } from "react";
 import useStore from "../appStore/appStore";
 import det from "../functions/matrixDeterminant";
-import inverse from "../functions/MatrixInverse";
 import MultyplayMatrix from "../functions/MatrixMultiplay";
 
 interface Data {

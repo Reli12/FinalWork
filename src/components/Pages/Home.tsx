@@ -38,13 +38,25 @@ const SelectItem = styled.select`
 `;
 const InvResault = styled.div`
   display: flex;
-  p {
-    display: block;
-  }
+  gap: 20px;
+  border-radius: 4px;
+  border-left: solid 2px black;
+  border-right: solid 2px black;
+  padding: 10px;
+  margin: 20px;
+`;
+const Colum = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+const TextInverse = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  color: #383b53;
 `;
 const Home = () => {
-  const { numberOfEquation, setNumberOfEquation, flag, inversResault } =
-    useMatrixContext();
+  const { numberOfEquation, setNumberOfEquation, flag } = useMatrixContext();
   const [showeInverse, setShoweInverse] = useState(false);
   let a: string;
   const onChange = () => {
@@ -53,9 +65,7 @@ const Home = () => {
     setNumberOfEquation(parseInt(a));
   };
   const { inverse } = useStore();
-  console.log(inverse);
-  let i = 1;
-  let j = 0;
+
   return (
     <Root>
       <Text>Unesite broj jednadžbi koje želite imati:</Text>
@@ -88,26 +98,21 @@ const Home = () => {
         </Button>
       )}
 
-      <>
-        {flag === 1 &&
-          showeInverse &&
-          inverse != 0 &&
-          [...Array(numberOfEquation * numberOfEquation)].map((el, index) => (
-            <React.Fragment key={index}>
-              {index === 0 && <Text>1.StupacInverzne patrice</Text>}
-              <Text>{inversResault[index]}</Text>
-              {index % numberOfEquation === numberOfEquation - 1 && (
-                <p>
-                  {index === numberOfEquation * numberOfEquation - 1 ? (
-                    <></>
-                  ) : (
-                    <Text>{(i += 1)}.StupacInverzne patrice</Text>
-                  )}
-                </p>
-              )}
-            </React.Fragment>
+      {flag === 1 && inverse !== 0 && showeInverse && (
+        <InvResault>
+          {[...Array(numberOfEquation)].map((el, i) => (
+            <Colum>
+              {[...Array(numberOfEquation)].map((ele, j) => (
+                <React.Fragment key={j}>
+                  <div>
+                    <TextInverse> {inverse[i][j]}</TextInverse>
+                  </div>
+                </React.Fragment>
+              ))}
+            </Colum>
           ))}
-      </>
+        </InvResault>
+      )}
     </Root>
   );
 };
