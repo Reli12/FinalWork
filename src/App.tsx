@@ -8,9 +8,7 @@ function App() {
   return (
     <ContextMatrixProvider>
       <NavBar />
-      <Routes>
-        <Home />
-      </Routes>
+      <Home />
     </ContextMatrixProvider>
   );
 }
