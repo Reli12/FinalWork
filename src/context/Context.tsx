@@ -12,6 +12,7 @@ interface Data {
   Calculate: VoidFunction;
   FinalResault: number[];
   flag: number;
+  print: number;
   inversResault: number[];
 }
 
@@ -20,20 +21,21 @@ const Context = React.createContext<Data>({} as Data);
 export const ContextMatrixProvider = (props: any) => {
   const [numberOfEquation, setNumberOfEquation] = useState(0);
   const [flag, setflag] = useState(0);
+  const [print, setPrint] = useState(0);
   let resault: number[] = [];
   let matrix: number[][] = [];
   const [FinalResault, setFinalResault] = useState([] as number[]);
   const [inversResault, setInverseResault] = useState([] as number[]);
-  const { setInverse } = useStore();
+  const { setInverse, setPrintMatrix, setFinalResaultPrint } = useStore();
   const Calculate = () => {
     let a = det(matrix);
-    console.log(a + "det");
     // let inv = inverse(matrix);
     setflag(-1);
     if (a == 0) {
       setflag(-1);
     } else {
       let inve = inv(matrix);
+
       setInverse(matrix);
       let finalResault = MultyplayMatrix(inve, resault, numberOfEquation);
       setflag(1);
@@ -47,8 +49,9 @@ export const ContextMatrixProvider = (props: any) => {
           inversResault.push(inve[i][j]);
         }
       }
-      console.log(inversResault);
+      setFinalResaultPrint(finalResault);
     }
+    setPrint(1);
   };
   return (
     <Context.Provider
@@ -61,6 +64,7 @@ export const ContextMatrixProvider = (props: any) => {
         FinalResault,
         flag,
         inversResault,
+        print,
       }}
     >
       {props.children}

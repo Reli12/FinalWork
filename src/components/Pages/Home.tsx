@@ -50,13 +50,27 @@ const Colum = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
+const WrapperColum = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
 const TextInverse = styled.span`
   font-size: 20px;
   font-weight: bold;
   color: #383b53;
 `;
+const Wrapper = styled.div`
+  display: flex;
+  gap: 25px;
+`;
 const Home = () => {
-  const { numberOfEquation, setNumberOfEquation, flag } = useMatrixContext();
+  const { numberOfEquation, setNumberOfEquation, flag, print } =
+    useMatrixContext();
   const [showeInverse, setShoweInverse] = useState(false);
   let a: string;
   const onChange = () => {
@@ -64,23 +78,28 @@ const Home = () => {
     a = input.value;
     setNumberOfEquation(parseInt(a));
   };
-  const { inverse } = useStore();
-
+  const { inverse, matrixPrint, printResault } = useStore();
+  console.log(inverse);
   return (
     <Root>
-      <Text>Unesite broj jednadžbi koje želite imati:</Text>
-      <SelectItem id="ddlViewBy">
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </SelectItem>
-      <Button onClick={onChange}>Unesite</Button>
+      {print !== 1 && (
+        <>
+          <Text>Unesite broj jednadžbi koje želite imati:</Text>
+          <SelectItem id="ddlViewBy">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </SelectItem>
+          <Button onClick={onChange}>Unesite</Button>
+        </>
+      )}
+
       {numberOfEquation > 1 && (
         <>
           <Text>
@@ -91,26 +110,66 @@ const Home = () => {
           <Table />
         </>
       )}
+      <Wrapper>
+        {print === 1 && (
+          <InvResault>
+            <WrapperColum>
+              {[...Array(numberOfEquation)].map((_, i) => (
+                <Row>
+                  {[...Array(numberOfEquation)].map((_, j) => (
+                    <React.Fragment key={i + j}>
+                      <TextInverse> {matrixPrint[i][j]}</TextInverse>
+                    </React.Fragment>
+                  ))}
+                </Row>
+              ))}
+            </WrapperColum>
+          </InvResault>
+        )}
+        {print === 1 && (
+          <InvResault>
+            <WrapperColum>
+              {[...Array(numberOfEquation)].map((_, i) => (
+                <Row key={i}>
+                  <TextInverse> x{i}</TextInverse>
+                </Row>
+              ))}
+            </WrapperColum>
+          </InvResault>
+        )}
+        {print === 1 && (
+          <InvResault>
+            <WrapperColum>
+              {[...Array(numberOfEquation)].map((_, i) => (
+                <Row key={i}>
+                  <TextInverse> {printResault[i]}</TextInverse>
+                </Row>
+              ))}
+            </WrapperColum>
+          </InvResault>
+        )}
+      </Wrapper>
       {<Resault />}
       {flag === 1 && inverse != 0 && (
         <Button onClick={() => setShoweInverse(!showeInverse)}>
           Prikazi inverznu matricu
         </Button>
       )}
-
       {flag === 1 && inverse !== 0 && showeInverse && (
         <InvResault>
-          {[...Array(numberOfEquation)].map((el, i) => (
-            <Colum>
-              {[...Array(numberOfEquation)].map((ele, j) => (
-                <React.Fragment key={j}>
-                  <div>
-                    <TextInverse> {inverse[i][j]}</TextInverse>
-                  </div>
-                </React.Fragment>
-              ))}
-            </Colum>
-          ))}
+          <WrapperColum>
+            {[...Array(numberOfEquation)].map((el, i) => (
+              <Row>
+                {[...Array(numberOfEquation)].map((ele, j) => (
+                  <React.Fragment key={j}>
+                    <div>
+                      <TextInverse> {inverse[i][j]}</TextInverse>
+                    </div>
+                  </React.Fragment>
+                ))}
+              </Row>
+            ))}
+          </WrapperColum>
         </InvResault>
       )}
     </Root>

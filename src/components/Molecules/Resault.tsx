@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useStore from "../../appStore/appStore";
 import { useMatrixContext } from "../../context/Context";
 
 const Text = styled.span`
@@ -8,7 +9,8 @@ const Text = styled.span`
 `;
 
 const Resault = () => {
-  const { FinalResault, numberOfEquation, flag } = useMatrixContext();
+  const { numberOfEquation, flag } = useMatrixContext();
+  const { finalResault } = useStore();
   let array = new Array(numberOfEquation);
   for (let i = 0; i < numberOfEquation; i++) {
     array[i] = i;
@@ -25,9 +27,9 @@ const Resault = () => {
           {flag === 1 && (
             <>
               <Text>Rezultati jednadžbi:</Text>
-              {array.map((el, i) => (
+              {array.map((_, i) => (
                 <Text key={i}>
-                  x{i + 1}={`${FinalResault[i]}`}
+                  x{i + 1}={`${finalResault[i]}`}
                 </Text>
               ))}
             </>

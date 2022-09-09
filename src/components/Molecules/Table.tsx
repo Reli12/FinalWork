@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useStore from "../../appStore/appStore";
 import { useMatrixContext } from "../../context/Context";
 import Input from "../Atoms/Input";
 
@@ -18,7 +19,7 @@ const Button = styled.button`
 
 const Table = () => {
   const { numberOfEquation, resault, matrix, Calculate } = useMatrixContext();
-
+  const { setPrintMatrix, setPrintResault } = useStore();
   let array = new Array(numberOfEquation);
   for (let i = 0; i < numberOfEquation; i++) {
     array[i] = i;
@@ -39,6 +40,7 @@ const Table = () => {
         }
       }
     }
+    setPrintMatrix(matrix);
     for (let j = 0; j < numberOfEquation; j++) {
       const input = document.getElementById(`Resault${j}`) as HTMLInputElement;
       d = input.value;
@@ -48,6 +50,7 @@ const Table = () => {
         resault[j] = parseFloat(d);
       }
     }
+    setPrintResault(resault);
     Calculate();
   };
 
