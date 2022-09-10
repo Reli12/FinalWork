@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <>
       <Root>
-        <Text>Calculate equation</Text>
+        <Text>Calculate system of equations</Text>
       </Root>
     </>
   );

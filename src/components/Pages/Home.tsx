@@ -36,14 +36,27 @@ const SelectItem = styled.select`
   height: 30px;
   border-radius: 4px;
 `;
-const InvResault = styled.div`
+const MatrixPrintStyle = styled.div`
   display: flex;
   gap: 20px;
-  border-radius: 4px;
   border-left: solid 2px black;
   border-right: solid 2px black;
   padding: 10px;
   margin: 20px;
+`;
+const BorderLeft = styled.div`
+  margin: -10px;
+  margin-left: -12px;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+  width: 5px;
+`;
+const BorderRight = styled.div`
+  margin: -10px;
+  margin-right: -12px;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+  width: 5px;
 `;
 const Colum = styled.div`
   display: flex;
@@ -57,7 +70,7 @@ const WrapperColum = styled.div`
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 12px;
 `;
 const TextInverse = styled.span`
   font-size: 20px;
@@ -66,7 +79,26 @@ const TextInverse = styled.span`
 `;
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 25px;
+`;
+const TextWrapper = styled.div`
+  height: 100%;
+  margin-right: -40px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #383b53;
+`;
+const SmallText = styled.span`
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: -4px;
+`;
+const BigText = styled.span`
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 5px;
 `;
 const Home = () => {
   const { numberOfEquation, setNumberOfEquation, flag, print } =
@@ -112,41 +144,58 @@ const Home = () => {
       )}
       <Wrapper>
         {print === 1 && (
-          <InvResault>
-            <WrapperColum>
-              {[...Array(numberOfEquation)].map((_, i) => (
-                <Row>
-                  {[...Array(numberOfEquation)].map((_, j) => (
-                    <React.Fragment key={i + j}>
-                      <TextInverse> {matrixPrint[i][j]}</TextInverse>
-                    </React.Fragment>
-                  ))}
-                </Row>
-              ))}
-            </WrapperColum>
-          </InvResault>
+          <>
+            <TextWrapper>A=</TextWrapper>
+            <MatrixPrintStyle>
+              <BorderLeft />
+              <WrapperColum>
+                {[...Array(numberOfEquation)].map((_, i) => (
+                  <Row>
+                    {[...Array(numberOfEquation)].map((_, j) => (
+                      <React.Fragment key={i + j}>
+                        <TextInverse> {matrixPrint[i][j]}</TextInverse>
+                      </React.Fragment>
+                    ))}
+                  </Row>
+                ))}
+              </WrapperColum>
+              <BorderRight />
+            </MatrixPrintStyle>
+          </>
         )}
         {print === 1 && (
-          <InvResault>
-            <WrapperColum>
-              {[...Array(numberOfEquation)].map((_, i) => (
-                <Row key={i}>
-                  <TextInverse> x{i}</TextInverse>
-                </Row>
-              ))}
-            </WrapperColum>
-          </InvResault>
+          <>
+            <TextWrapper>X=</TextWrapper>
+            <MatrixPrintStyle>
+              <BorderLeft />
+              <WrapperColum>
+                {[...Array(numberOfEquation)].map((_, i) => (
+                  <Row key={i}>
+                    <TextInverse>
+                      x <SmallText>{i + 1}</SmallText>
+                    </TextInverse>
+                  </Row>
+                ))}
+              </WrapperColum>
+              <BorderRight />
+            </MatrixPrintStyle>
+          </>
         )}
         {print === 1 && (
-          <InvResault>
-            <WrapperColum>
-              {[...Array(numberOfEquation)].map((_, i) => (
-                <Row key={i}>
-                  <TextInverse> {printResault[i]}</TextInverse>
-                </Row>
-              ))}
-            </WrapperColum>
-          </InvResault>
+          <>
+            <TextWrapper>B=</TextWrapper>
+            <MatrixPrintStyle>
+              <BorderLeft />
+              <WrapperColum>
+                {[...Array(numberOfEquation)].map((_, i) => (
+                  <Row key={i}>
+                    <TextInverse> {printResault[i]}</TextInverse>
+                  </Row>
+                ))}
+              </WrapperColum>
+              <BorderRight />
+            </MatrixPrintStyle>
+          </>
         )}
       </Wrapper>
       {<Resault />}
@@ -156,21 +205,29 @@ const Home = () => {
         </Button>
       )}
       {flag === 1 && inverse !== 0 && showeInverse && (
-        <InvResault>
-          <WrapperColum>
-            {[...Array(numberOfEquation)].map((el, i) => (
-              <Row>
-                {[...Array(numberOfEquation)].map((ele, j) => (
-                  <React.Fragment key={j}>
-                    <div>
-                      <TextInverse> {inverse[i][j]}</TextInverse>
-                    </div>
-                  </React.Fragment>
-                ))}
-              </Row>
-            ))}
-          </WrapperColum>
-        </InvResault>
+        <Wrapper>
+          <TextWrapper> A^-1=</TextWrapper>
+          <MatrixPrintStyle>
+            <BorderLeft />
+            <WrapperColum>
+              {[...Array(numberOfEquation)].map((el, i) => (
+                <Row>
+                  {[...Array(numberOfEquation)].map((ele, j) => (
+                    <React.Fragment key={j}>
+                      <div>
+                        <TextInverse> {inverse[i][j]}</TextInverse>
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </Row>
+              ))}
+            </WrapperColum>
+            <BorderRight />
+          </MatrixPrintStyle>
+        </Wrapper>
+      )}
+      {print === 1 && (
+        <Button onClick={() => window.location.reload()}>Reset all</Button>
       )}
     </Root>
   );
