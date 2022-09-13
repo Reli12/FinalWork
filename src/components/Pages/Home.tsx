@@ -106,7 +106,7 @@ const Home = () => {
   const [showeInverse, setShoweInverse] = useState(false);
   let a: string;
   const onChange = () => {
-    const input = document.getElementById("ddlViewBy") as HTMLInputElement;
+    const input = document.getElementById("NumOfEqueazion") as HTMLInputElement;
     a = input.value;
     setNumberOfEquation(parseInt(a));
   };
@@ -117,7 +117,7 @@ const Home = () => {
       {print !== 1 && (
         <>
           <Text>Unesite broj jednadžbi koje želite imati:</Text>
-          <SelectItem id="ddlViewBy">
+          <SelectItem id="NumOfEqueazion">
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
